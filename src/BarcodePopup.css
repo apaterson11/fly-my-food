@@ -1,0 +1,44 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#map,
+#mapUI {
+  width: inherit;
+  height: inherit;
+  background-color: #000;
+  z-index: 1;
+}
+
+.barcode {
+  position: absolute;
+  top: 80%;
+  display: block;
+  float: left;
+  z-index: 401;
+  width: auto;
+  height: auto;
+  background-image: url('camera_icon.png');
+  margin: 10px;
+  font-family: sans-serif;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.barcodePopup {
+  position: absolute;
+  bottom: 10px;
+  z-index: 402;
+  width: auto;
+  height: auto;
+  background: rgb(255, 255, 255);
+  font-family: sans-serif;
+  font-size: 12px;
+  padding: 5px;
+  padding-bottom: 6px;
+  border-radius: 10px;
+}
