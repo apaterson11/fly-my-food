@@ -1,0 +1,8 @@
+.barcode-scanner {
+  margin-bottom: 0;
+}
+
+.barcode-scanner .barcode-scanner--button {
+  margin-top: 0.5rem;
+  display: block;
+}
