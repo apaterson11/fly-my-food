@@ -7,7 +7,6 @@ import "./css/HomePage.css"
 function HomePage () {
     return (
       <div className="screen-container">
-          <div className="heading">Scan your Barcode</div>
           <div className="scanner-container">
             <BarcodeScanner/>
           </div>

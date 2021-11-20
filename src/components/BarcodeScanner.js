@@ -1,58 +1,66 @@
 import React, { useState } from "react";
-import { TextField } from "@material-ui/core";
+import { Button, List, ListItem, ListItemText, Divider, TextField } from "@material-ui/core";
 import BarcodeReader from "react-barcode-reader";
 import "./css/BarcodeScanner.css";
 
-function BarcodeScanner ({
-  name,
-  showTextInput = true,
-  acceptingScan = true,
-  buttons = null,
-}) {
+function BarcodeScanner () {
   const [acceptingScanInternal, setAcceptingScanInternal] = useState(true);
   const [result, setResult] = useState("");
+  const [barcodeList, setBarcodeList] = useState([]);
 
   const handleInput = (value) => {
     console.log(value)
     setResult(value)
-    //if (acceptingScan && !showTextInput) onInput(value);
-    //else if (acceptingScanInternal && showTextInput) {
-      //setAcceptingScanInternal(false);
-      //onInput(value);
-    //}
   };
   const handleError = (error) => error && console.error(error);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setBarcodeList(barcodeList => [...barcodeList, result])
+    console.log(barcodeList)
+    
+  }
 
   return (
     <div className="barcode-scanner">
-      <BarcodeReader
-        onScan={handleInput}
-        onError={handleError}
-        acceptingScan={acceptingScanInternal || acceptingScan}
-      />
-      {(result ? (
-          <strong>Barcode: {result}</strong>
-        ) : (
-          <strong>Scan {name} Barcode</strong>
-        ))}
-
-      {showTextInput && (
-        <div className="flex">
-          <TextField
-            label={name}
-            variant="outlined"
-            size="small"
-            value={result}
-            onChange={(e) => setResult(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-            className="pr-2"
-            onFocus={() => setAcceptingScanInternal(true)}
-            onBlur={() => setAcceptingScanInternal(false)}
+      <div className="inline-container">
+        <div className="left-side">
+          <div className="heading">Scan or Enter your Barcode</div>
+          <BarcodeReader
+            onScan={handleInput}
+            onError={handleError}
+            acceptingScan={acceptingScanInternal}
           />
-          {buttons}
+          <div className="flex">
+            <TextField
+              variant="outlined"
+              size="small"
+              value={result}
+              onChange={(e) => setResult(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+              className="pr-2"
+              onFocus={() => setAcceptingScanInternal(true)}
+              onBlur={() => setAcceptingScanInternal(false)}
+            />
+            <Button variant="contained" onClick={(e) => handleSubmit(e)}>Submit</Button>
+          </div>
         </div>
-      )}
+        <div className="right-side">
+          <div className="heading">Your Shopping List</div>
+          <div className="barcodes-list">
+            <List dense={true}>
+            {barcodeList?.map((barcode) =>
+              <div>
+              <Divider />
+              <ListItem>
+                <ListItemText>{barcode}</ListItemText>
+              </ListItem>
+              </div>
+            )}
+            </List>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
