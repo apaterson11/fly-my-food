@@ -1,7 +1,7 @@
 import React from "react";
-import BarcodeScanner from './barcodeScanner';
+import BarcodeScanner from './BarcodeScanner';
 
-require("./BarcodePopup.css");
+require("./css/BarcodePopup.css");
 
 // for adding layers
 export default class BarcodePopup extends React.Component {
