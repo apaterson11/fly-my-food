@@ -7,8 +7,12 @@ function BarcodeScanner () {
   const [acceptingScanInternal, setAcceptingScanInternal] = useState(true);
   const [result, setResult] = useState("");
   const [barcodeList, setBarcodeList] = useState([]);
+  const [count, setCount] = useState(0);
 
-  const handleInput = (value) => {
+  const productNames = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
+
+  const handleInput = (e, value) => {
+    e.preventDefault();
     console.log(value)
     setResult(value)
   };
@@ -16,9 +20,9 @@ function BarcodeScanner () {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBarcodeList(barcodeList => [...barcodeList, result])
+    setBarcodeList(barcodeList => [...barcodeList, [productNames[count], result]])
     console.log(barcodeList)
-    
+    setCount(count + 1)
   }
 
   return (
@@ -49,11 +53,11 @@ function BarcodeScanner () {
           <div className="heading">Your Shopping List</div>
           <div className="barcodes-list">
             <List dense={true}>
-            {barcodeList?.map((barcode) =>
+            {barcodeList?.map((line) =>
               <div>
               <Divider />
               <ListItem>
-                <ListItemText>{barcode}</ListItemText>
+                <ListItemText className="list-item">{`${line[0]}     ${line[1]}`}</ListItemText>
               </ListItem>
               </div>
             )}
