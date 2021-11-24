@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext, Component, useLayoutEffect, createRef, prevProps, prevState } from "react";
 import Popup from "reactjs-popup";
-import { GoogleMap, Marker, useLoadScript, Polyline, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript, LoadScript, Polyline } from "@react-google-maps/api";
 
 import BarcodePopup from './BarcodePopup';
 import { Icon } from "@material-ui/core";
@@ -14,29 +14,30 @@ const mapContainerStyle = {
     height: '100vh',
 };
 
-// let user_location = {lat: 0, lng: 0}; 
-let user_location = glasgow;
-
 class MapView extends React.Component {
     constructor(props) {
         super(props);
+        this.mapRef = React.createRef();
         this.state = {
-            icons: [
-                { icon: 
-                    {
-                        path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
-                        scale: 8, 
-                        strokeColor: "#A6B7D7"
-                    }, 
-                    offset: "100%" 
-                }
-            ],
-            path: [
-                { lat: 56, lng: -5.3518 },
-                { lat: 56.8642, lng: -5.3518 },
-            ],
-            lineRef: new Polyline,
-            mapRef: null,
+            line: new Polyline({
+                path: [
+                    { lat: 56.8642, lng: -5.3518 },
+                    { lat: 56, lng: -5.3518 },
+                ],
+                options: {
+                    icons: [
+                        { icon: 
+                            {
+                                path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
+                                scale: 8, 
+                                strokeColor: "#A6B7D7",
+                            }, 
+                            offset: "100%" 
+                        }
+                    ],
+                },
+            }),
+            user_location: glasgow,
 
         };
         this.waitForWindow= this.waitForWindow.bind(this);
@@ -45,78 +46,89 @@ class MapView extends React.Component {
     // Use the DOM setInterval() function to change the offset of the symbol
     // at fixed intervals.
     // state is changing but not reflected in frontend
-    animateCircle(line) {
-        console.log("function again")
+    animateCircle() {
         let count = 0;
-        console.log(line);
-        if (line) {
+        if (this.state.line) {
             window.setInterval(() => {
                 count = (count + 1) % 200;
-                let x = line.current.props.icons;
-                let icons = this.state.icons;
-                x[0].offset = count / 2 + "%";
-                icons[0] = x[0];
-                this.setState({ icons })
+                let newLine = this.state.line;
+                let newOffset = newLine.props.options.icons[0].offset;
+                newOffset = count / 2 + "%";
+                newLine.props.options.icons[0].offset = newOffset;
 
-                let y = line.current.props.path;
-                let path = this.state.path;
-                path[0].lat = path[0].lat + 1;
-            }, 5000);
+                this.setState({ line: new Polyline({
+                    path: [
+                        { lat: 56.8642, lng: -5.3518 },
+                        { lat: 56, lng: -5.3518 },
+                    ],
+                    options: {
+                        icons: [
+                            { icon: 
+                                {
+                                    path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
+                                    scale: 8, 
+                                    strokeColor: "#A6B7D7", 
+                                }, 
+                                offset: newOffset
+                            }
+                        ],
+                    },
+                })});
+
+
+                // let user_loc = this.state.user_location;
+                // let lng = user_loc.lng
+                // lng = lng + 0.01
+                // user_loc.lng = lng;
+                // this.setState({ user_location: user_loc })
+                // // this.setState({ user_location: { lat: 0, lng: 0 } })
+
+                // let path = newLine.props.path[0].lat;
+                // path = path + 1
+                // newLine.props.path[0].lat = path;
+                // this.setState({ ...this.state.line, path: path })
+            }, 100);
         }
     }
 
     waitForWindow() {
-        if(typeof window.google !== "undefined"){
+        if (typeof window.google !== "undefined") {
             //variable exists, do what you want
-            console.log("succeeded");
-            console.log("icons " + this.state.icons)
-            let icons = this.state.icons;
-            let icon = icons[0];
+            let newLine = this.state.line;
+            let icon = newLine.props.options.icons[0];
             icon.icon.path = window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW;
-            icons[0] = icon;
-            this.setState({ icons })
+            newLine.props.options.icons[0] = icon;
+            this.setState({ line: newLine })
+            this.animateCircle();
         }
         else{
-            setTimeout(this.waitForWindow, 250);
+            setTimeout(() => this.waitForWindow(), 3000);
         }
     }
 
     componentDidMount() {
-        console.log("found");
         this.waitForWindow();
-        this.animateCircle(this.state.lineRef);
     };
-
-    componentDidUpdate(prevProps, nextState) {
-        console.log(nextState.icons);
-        console.log(this.state.icons);
-        if (nextState.icons !== this.state.icons) {
-            console.log("wow");
-        }
-    }
     
     render() {
-        console.log(this.state.icons);
-        console.log(this.state.lineRef);
         return (
             <div>
                 <LoadScript
                      googleMapsApiKey = 'AIzaSyAYtDG4yYGDrPP5zZF2OqYBwQ4pA8-w6Wk'
                 >
                 <GoogleMap
-                ref = {this.state.mapRef} 
+                ref = {this.mapRef} 
                 mapContainerStyle={mapContainerStyle}
                 zoom={4}
-                center={user_location}>
+                center={this.state.user_location}>
                     <Marker
                         id = "user_pos"
-                        position = {user_location}
+                        position = {this.state.user_location}
                     >    
                     </Marker>
                     <Polyline
-                        ref={this.state.lineRef}
-                        path={this.state.path}
-                        icons={this.state.icons}
+                        path={this.state.line.props.path}
+                        options={this.state.line.props.options}
                     />  
                     <Popup
                         trigger={() => (
