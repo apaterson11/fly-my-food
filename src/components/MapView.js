@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect, useContext, Component, useLayoutEffect, createRef, prevProps, prevState } from "react";
+import Text from "react-native";
 import Popup from "reactjs-popup";
 import { GoogleMap, Marker, useLoadScript, LoadScript, Polyline } from "@react-google-maps/api";
 
 import BarcodePopup from './BarcodePopup';
-import { Icon } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 require("./css/BarcodePopup.css");
+require("./css/TextField.css");
 
 const glasgow = { lat: 55.8642, lng: -4.2518 };
 const inputs = [
@@ -45,10 +47,38 @@ class MapView extends React.Component {
                 },
             }),
             user_location: glasgow,
+            distance: 0,
 
         };
         this.waitForWindow = this.waitForWindow.bind(this);
         this.createLines = this.createLines.bind(this);
+        this.calculateDistance = this.calculateDistance.bind(this);
+    }
+
+    calculateDistance(lat1, lon1, lat2, lon2) {
+        // The math module contains a function
+        // named toRadians which converts from
+        // degrees to radians.
+        lon1 =  lon1 * Math.PI / 180;
+        lon2 = lon2 * Math.PI / 180;
+        lat1 = lat1 * Math.PI / 180;
+        lat2 = lat2 * Math.PI / 180;
+
+        // Haversine formula
+        let dlon = lon2 - lon1;
+        let dlat = lat2 - lat1;
+        let a = Math.pow(Math.sin(dlat / 2), 2)
+            + Math.cos(lat1) * Math.cos(lat2)
+            * Math.pow(Math.sin(dlon / 2),2);
+        
+        let c = 2 * Math.asin(Math.sqrt(a));
+
+        // Radius of earth in kilometers. Use 3956
+        // for miles
+        let r = 6371;
+
+        // calculate the result
+        return(c * r);
     }
 
     // Use the DOM setInterval() function to change the offset of the symbol
@@ -116,6 +146,9 @@ class MapView extends React.Component {
             lines.push(line);
             this.setState({lines})
             this.animateCircle(line, i, origin, destination);
+            let result = this.calculateDistance(origin.lat, origin.lng, destination.lat, destination.lng);
+            console.log(result);
+            this.setState({ distance: this.state.distance + result})
         }
     }
 
@@ -177,6 +210,13 @@ class MapView extends React.Component {
                             <BarcodePopup></BarcodePopup>
                         </span>
                     </Popup>
+                    <TextField
+                        id="distance"
+                        label="Distance"
+                        value={this.state.distance.toFixed(2) + " km"}
+                        margin="normal"
+                        className="textField"
+                    />
                     
                 </GoogleMap>
                 </LoadScript>
