@@ -8,6 +8,12 @@ import { Icon } from "@material-ui/core";
 require("./css/BarcodePopup.css");
 
 const glasgow = { lat: 55.8642, lng: -4.2518 };
+const inputs = [
+    [{lat: 61.524010, lng: 105.318756}, glasgow],
+    [{lat: 35.861660, lng: 104.195396}, glasgow],
+    [{lat: 34.052235, lng: -118.243683}, glasgow],
+    [{lat: 52.945190, lng: -0.160125}, glasgow],
+]
 
 const mapContainerStyle = {
     width: '100wv',
@@ -19,10 +25,11 @@ class MapView extends React.Component {
         super(props);
         this.mapRef = React.createRef();
         this.state = {
+            lines: [],
             line: new Polyline({
                 path: [
                     { lat: 56.8642, lng: -5.3518 },
-                    { lat: 56, lng: -5.3518 },
+                    glasgow,
                 ],
                 options: {
                     icons: [
@@ -40,54 +47,75 @@ class MapView extends React.Component {
             user_location: glasgow,
 
         };
-        this.waitForWindow= this.waitForWindow.bind(this);
+        this.waitForWindow = this.waitForWindow.bind(this);
+        this.createLines = this.createLines.bind(this);
     }
 
     // Use the DOM setInterval() function to change the offset of the symbol
     // at fixed intervals.
     // state is changing but not reflected in frontend
-    animateCircle() {
+    animateCircle(line, index, origin, destination) {
         let count = 0;
-        if (this.state.line) {
-            window.setInterval(() => {
-                count = (count + 1) % 200;
-                let newLine = this.state.line;
-                let newOffset = newLine.props.options.icons[0].offset;
-                newOffset = count / 2 + "%";
-                newLine.props.options.icons[0].offset = newOffset;
+        window.setInterval(() => {
+            count = (count + 1) % 200;
+            let newLine = line;
+            let newLines = [...this.state.lines];
+            let newOffset = newLine.props.options.icons[0].offset;
+            newOffset = count / 2 + "%";
+            newLine.props.options.icons[0].offset = newOffset;
 
-                this.setState({ line: new Polyline({
-                    path: [
-                        { lat: 56.8642, lng: -5.3518 },
-                        { lat: 56, lng: -5.3518 },
+            newLine = new Polyline({
+                path: [
+                    origin,
+                    destination,
+                ],
+                options: {
+                    icons: [
+                        { icon: 
+                            {
+                                path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
+                                scale: 8, 
+                                strokeColor: "#A6B7D7", 
+                            }, 
+                            offset: newOffset
+                        }
                     ],
-                    options: {
-                        icons: [
-                            { icon: 
-                                {
-                                    path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
-                                    scale: 8, 
-                                    strokeColor: "#A6B7D7", 
-                                }, 
-                                offset: newOffset
-                            }
-                        ],
-                    },
-                })});
+                },
+            })
 
+            newLines.splice(index, 1, newLine);
+            this.setState({ lines: newLines });
+        }, 10);
+    }
 
-                // let user_loc = this.state.user_location;
-                // let lng = user_loc.lng
-                // lng = lng + 0.01
-                // user_loc.lng = lng;
-                // this.setState({ user_location: user_loc })
-                // // this.setState({ user_location: { lat: 0, lng: 0 } })
+    createLines() {
+        for (let i = 0; i < inputs.length; i++) {
+            let origin  = inputs[i][0];
+            let destination = inputs[i][1];
 
-                // let path = newLine.props.path[0].lat;
-                // path = path + 1
-                // newLine.props.path[0].lat = path;
-                // this.setState({ ...this.state.line, path: path })
-            }, 100);
+            let line = new Polyline({
+                path: [
+                    origin,
+                    destination,
+                ],
+                options: {
+                    icons: [
+                        { icon: 
+                            {
+                                path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
+                                scale: 8, 
+                                strokeColor: "#A6B7D7",
+                            }, 
+                            offset: "100%" 
+                        }
+                    ],
+                },
+            })
+
+            const {lines} = this.state;
+            lines.push(line);
+            this.setState({lines})
+            this.animateCircle(line, i, origin, destination);
         }
     }
 
@@ -99,7 +127,7 @@ class MapView extends React.Component {
             icon.icon.path = window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW;
             newLine.props.options.icons[0] = icon;
             this.setState({ line: newLine })
-            this.animateCircle();
+            this.createLines();
         }
         else{
             setTimeout(() => this.waitForWindow(), 3000);
@@ -111,6 +139,13 @@ class MapView extends React.Component {
     };
     
     render() {
+        let content = this.state.lines.map((line, index) => 
+            <Polyline
+                path={line.props.path}
+                options={line.props.options}
+            />
+        );
+        
         return (
             <div>
                 <LoadScript
@@ -126,10 +161,7 @@ class MapView extends React.Component {
                         position = {this.state.user_location}
                     >    
                     </Marker>
-                    <Polyline
-                        path={this.state.line.props.path}
-                        options={this.state.line.props.options}
-                    />  
+                    {content}
                     <Popup
                         trigger={() => (
                             <button
