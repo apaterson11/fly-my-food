@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-google-maps/api": "*",
     "cra-template": "1.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router": "^6.0.2",
+    "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
-    "@react-google-maps/api": "*",
+    "react-webcam-barcode-scanner": "*",
     "reactjs-popup": "*",
-    "react-webcam-barcode-scanner": "*"
+    "styled-components": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
