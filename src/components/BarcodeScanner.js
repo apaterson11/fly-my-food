@@ -9,7 +9,9 @@ function BarcodeScanner () {
   const [barcodeList, setBarcodeList] = useState([]);
   const [count, setCount] = useState(0);
 
-  const productNames = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
+  const productNames = ["Golden Apples", "Large Free-Range Chicken", "Ready to Eat Avocado", "Baby Potatoes", "Carrots", "Walkers 24 Multipack", "Warburtons Medium White Bread", "Lurpak Spreadable"];
+  const locations = [[51.735851, 0.469710], [55.739258, -3.508655],[26.879818, -103.348665], [40.405572, -4.129428], [51.735851, 0.469710], [51.735851, 0.469710], [51.735851, 0.469710], [56.3615, 8.6217]];
+  const countriesList = ["England, UK", "Scotland, UK", "Mexico", "Spain", "England, UK", "England, UK", "England, UK", "Denmark"]
 
   const handleInput = (e, value) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ function BarcodeScanner () {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBarcodeList(barcodeList => [...barcodeList, [productNames[count], result]])
+    setBarcodeList(barcodeList => [...barcodeList, [productNames[count], countriesList[count], result]])
     console.log(barcodeList)
     setCount(count + 1)
   }
@@ -57,7 +59,7 @@ function BarcodeScanner () {
               <div>
               <Divider />
               <ListItem>
-                <ListItemText className="list-item">{`${line[0]}     ${line[1]}`}</ListItemText>
+                <ListItemText className="list-item" primary={`${line[0]}, ${line[1]}`} secondary={`Barcode: ${line[2]}`}/>
               </ListItem>
               </div>
             )}
