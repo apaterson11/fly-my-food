@@ -1,5 +1,5 @@
 import React from 'react';
-import BarcodeScanner from "../components/BarcodeScanner"
+import BarcodePopup from "../components/BarcodePopup"
 
 import "./css/HomePage.css"
 
@@ -8,7 +8,7 @@ function HomePage () {
     return (
       <div className="screen-container">
           <div className="scanner-container">
-            <BarcodeScanner/>
+            <BarcodePopup/>
           </div>
       </div>
     );

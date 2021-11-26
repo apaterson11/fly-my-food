@@ -10,12 +10,12 @@ require("./css/BarcodePopup.css");
 require("./css/TextField.css");
 
 const glasgow = { lat: 55.8642, lng: -4.2518 };
-const inputs = [
-    [{lat: 61.524010, lng: 105.318756}, glasgow],
-    [{lat: 35.861660, lng: 104.195396}, glasgow],
-    [{lat: 34.052235, lng: -118.243683}, glasgow],
-    [{lat: 52.945190, lng: -0.160125}, glasgow],
-]
+// const inputs = [
+//     [{lat: 61.524010, lng: 105.318756}, glasgow],
+//     [{lat: 35.861660, lng: 104.195396}, glasgow],
+//     [{lat: 34.052235, lng: -118.243683}, glasgow],
+//     [{lat: 52.945190, lng: -0.160125}, glasgow],
+// ]
 
 const mapContainerStyle = {
     width: '100wv',
@@ -38,7 +38,7 @@ class MapView extends React.Component {
                         { icon: 
                             {
                                 path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
-                                scale: 8, 
+                                scale: 4, 
                                 strokeColor: "#A6B7D7",
                             }, 
                             offset: "100%" 
@@ -46,6 +46,7 @@ class MapView extends React.Component {
                     ],
                 },
             }),
+            inputs: [],
             user_location: glasgow,
             distance: 0,
 
@@ -53,6 +54,7 @@ class MapView extends React.Component {
         this.waitForWindow = this.waitForWindow.bind(this);
         this.createLines = this.createLines.bind(this);
         this.calculateDistance = this.calculateDistance.bind(this);
+        this.getCoordinates = this.getCoordinates.bind(this);
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
@@ -104,7 +106,7 @@ class MapView extends React.Component {
                         { icon: 
                             {
                                 path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
-                                scale: 8, 
+                                scale: 4, 
                                 strokeColor: "#A6B7D7", 
                             }, 
                             offset: newOffset
@@ -118,38 +120,36 @@ class MapView extends React.Component {
         }, 10);
     }
 
-    createLines() {
-        for (let i = 0; i < inputs.length; i++) {
-            let origin  = inputs[i][0];
-            let destination = inputs[i][1];
+    createLines(input) {
+        console.log(input);
+        let origin  = input[0];
+        let destination = input[1];
 
-            let line = new Polyline({
-                path: [
-                    origin,
-                    destination,
+        let line = new Polyline({
+            path: [
+                origin,
+                destination,
+            ],
+            options: {
+                icons: [
+                    { icon: 
+                        {
+                            path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
+                            scale: 8, 
+                            strokeColor: "#A6B7D7",
+                        }, 
+                        offset: "100%" 
+                    }
                 ],
-                options: {
-                    icons: [
-                        { icon: 
-                            {
-                                path: window.google ? window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW : null, 
-                                scale: 8, 
-                                strokeColor: "#A6B7D7",
-                            }, 
-                            offset: "100%" 
-                        }
-                    ],
-                },
-            })
+            },
+        })
 
-            const {lines} = this.state;
-            lines.push(line);
-            this.setState({lines})
-            this.animateCircle(line, i, origin, destination);
-            let result = this.calculateDistance(origin.lat, origin.lng, destination.lat, destination.lng);
-            console.log(result);
-            this.setState({ distance: this.state.distance + result})
-        }
+        const {lines} = this.state;
+        lines.push(line);
+        this.setState({lines})
+        this.animateCircle(line, this.state.inputs.indexOf(input), origin, destination);
+        let result = this.calculateDistance(origin.lat, origin.lng, destination.lat, destination.lng);
+        this.setState({ distance: this.state.distance + result})
     }
 
     waitForWindow() {
@@ -160,7 +160,6 @@ class MapView extends React.Component {
             icon.icon.path = window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW;
             newLine.props.options.icons[0] = icon;
             this.setState({ line: newLine })
-            this.createLines();
         }
         else{
             setTimeout(() => this.waitForWindow(), 3000);
@@ -170,6 +169,15 @@ class MapView extends React.Component {
     componentDidMount() {
         this.waitForWindow();
     };
+
+    getCoordinates (coords) {
+        if (coords) {
+            const {inputs} = this.state;
+            inputs.push(coords);
+            this.setState({ inputs });
+            this.createLines(inputs.slice(-1)[0]);
+        }
+    }
     
     render() {
         let content = this.state.lines.map((line, index) => 
@@ -207,7 +215,7 @@ class MapView extends React.Component {
                         closeOnDocumentClick
                         >
                         <span>
-                            <BarcodePopup></BarcodePopup>
+                            <BarcodePopup>getCoordinates={this.getCoordinates}</BarcodePopup>
                         </span>
                     </Popup>
                     <TextField
