@@ -1,11 +1,11 @@
 import React from 'react';
-import BarcodeScanner from "../components/BarcodeScanner";
+import BarcodePopup from "../components/BarcodePopup";
 
 function BarcodeScannerPage () {
     return (
       <div className="screen-container">
           <div className="scanner-container">
-            <BarcodeScanner/>
+            <BarcodePopup boolMap={false}/>
           </div>
       </div>
     );

@@ -33,7 +33,7 @@ body {
   position: absolute;
   bottom: 10px;
   z-index: 402;
-  width: auto;
+  width: 700px;
   height: auto;
   background: rgb(255, 255, 255);
   font-family: sans-serif;
@@ -41,4 +41,5 @@ body {
   padding: 5px;
   padding-bottom: 6px;
   border-radius: 10px;
+  max-height: 70vh;
 }
