@@ -1,0 +1,15 @@
+.textField {
+    position: relative;
+    z-index: 402;
+    float: left;
+    left: 12px;
+    top: 87%;
+    width: auto;
+    height: auto;
+    background: rgb(255, 255, 255);
+    font-family: sans-serif;
+    font-size: 12px;
+    padding: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+  }

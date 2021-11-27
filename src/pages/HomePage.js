@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
-import BarcodeScanner from "../components/BarcodeScanner"
+import BarcodePopup from "../components/BarcodePopup"
 
 import "./css/HomePage.css"
 
