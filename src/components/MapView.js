@@ -4,6 +4,7 @@ import Popup from "reactjs-popup";
 import { GoogleMap, Marker, useLoadScript, LoadScript, Polyline } from "@react-google-maps/api";
 
 import BarcodePopup from './BarcodePopup';
+import StatsPopup from './StatsPopup';
 import { TextField } from "@material-ui/core";
 
 require("./css/BarcodePopup.css");
@@ -208,6 +209,21 @@ class MapView extends React.Component {
                     >    
                     </Marker>
                     {content}
+                    <Popup
+                        trigger={() => (
+                            <button
+                            className="stats"
+                            >
+                            Statistics
+                            </button>
+                        )}
+                        position="bottom right"
+                        closeOnDocumentClick
+                        >
+                        <span>
+                            <StatsPopup></StatsPopup>;
+                        </span>
+                    </Popup>
                     <Popup
                         trigger={() => (
                             <button
