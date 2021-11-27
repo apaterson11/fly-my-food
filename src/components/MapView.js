@@ -49,12 +49,14 @@ class MapView extends React.Component {
             inputs: [],
             user_location: glasgow,
             distance: 0,
+            score: 0.00,
 
         };
         this.waitForWindow = this.waitForWindow.bind(this);
         this.createLines = this.createLines.bind(this);
         this.calculateDistance = this.calculateDistance.bind(this);
         this.getCoordinates = this.getCoordinates.bind(this);
+        this.getScore = this.getScore.bind(this);
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
@@ -148,7 +150,7 @@ class MapView extends React.Component {
         this.setState({lines})
         this.animateCircle(line, this.state.inputs.indexOf(input), origin, destination);
         let result = this.calculateDistance(origin.lat, origin.lng, destination.lat, destination.lng);
-        this.setState({ distance: this.state.distance + result})
+        this.setState({ distance: this.state.distance + result}, this.getScore);
     }
 
     waitForWindow() {
@@ -169,13 +171,17 @@ class MapView extends React.Component {
         this.waitForWindow();
     };
 
-    getCoordinates (coords) {
+    getCoordinates(coords) {
         if (coords) {
             const {inputs} = this.state;
             inputs.push(coords);
             this.setState({ inputs });
             this.createLines(inputs.slice(-1)[0]);
         }
+    };
+
+    getScore() {
+        this.setState({ score: this.state.distance/this.state.lines.length});
     }
     
     render() {
@@ -221,6 +227,14 @@ class MapView extends React.Component {
                         id="distance"
                         label="Distance"
                         value={this.state.distance.toFixed(2) + " km"}
+                        margin="normal"
+                        className="textField"
+                    />
+                    <TextField
+                        id="score"
+                        label="Score (average distance)"
+                        defaultValue={0}
+                        value={this.state.score.toFixed(2) + " km"}
                         margin="normal"
                         className="textField"
                     />
