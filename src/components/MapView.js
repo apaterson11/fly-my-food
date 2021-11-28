@@ -51,13 +51,15 @@ class MapView extends React.Component {
             user_location: glasgow,
             distance: 0,
             score: 0.00,
-
+            barcodeList: [],
         };
+
         this.waitForWindow = this.waitForWindow.bind(this);
         this.createLines = this.createLines.bind(this);
         this.calculateDistance = this.calculateDistance.bind(this);
         this.getCoordinates = this.getCoordinates.bind(this);
         this.getScore = this.getScore.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
@@ -185,7 +187,9 @@ class MapView extends React.Component {
         this.setState({ score: this.state.distance/this.state.lines.length});
     }
     
-
+    reset() {
+        window.location.reload();
+    }
 
     render() {
         let content = this.state.lines.map((line, index) => 
@@ -205,6 +209,12 @@ class MapView extends React.Component {
                 mapContainerStyle={mapContainerStyle}
                 zoom={4}
                 center={this.state.user_location}>
+                    <button
+                        className="repeat"
+                        onClick={this.reset}
+                    >
+                        Reset
+                    </button>
                     <Marker
                         id = "user_pos"
                         position = {this.state.user_location}
@@ -238,23 +248,23 @@ class MapView extends React.Component {
                         closeOnDocumentClick
                         >
                         <span>
-                            <BarcodePopup getCoordinates={this.getCoordinates} boolMap={true}></BarcodePopup>;
+                            <BarcodePopup getCoordinates={this.getCoordinates} boolMap={true} barcodeList={this.state.barcodeList}></BarcodePopup>;
                         </span>
                     </Popup>
                     <TextField
-                        id="distance"
                         label="Distance"
                         value={this.state.distance.toFixed(2) + " km"}
                         margin="normal"
                         className="textField"
+                        variant="filled"
                     />
                     <TextField
-                        id="score"
                         label="Score (average distance)"
                         defaultValue={0}
                         value={this.state.score.toFixed(2) + " km"}
                         margin="normal"
                         className="textField"
+                        variant="filled"
                     />
                     
                 </GoogleMap>

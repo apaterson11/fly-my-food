@@ -41,12 +41,12 @@ function StatsPopup (props) {
           margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis>
-            <Label value="Your previous shops" offset={0} position="insideBottom" />
+          <XAxis stroke="white">
+            <Label value="Your previous shops" offset={0} position="insideBottom" stroke="white" />
           </XAxis>
-          <YAxis label={{ value: 'CO2 emissions (kg)', angle: -90, position: 'insideLeft' }} />
+          <YAxis stroke="white" label={{ value: 'CO2 emissions (kg)', angle: -90, position: 'insideLeft', stroke:"white"}} />
           <Bar dataKey="items" fill="#8884d8">
-            <LabelList dataKey="name" position="top" />
+            <LabelList dataKey="name" position="top" stroke="white" />
           </Bar>
         </BarChart>
       </div>
