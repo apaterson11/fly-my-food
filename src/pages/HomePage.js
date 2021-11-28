@@ -12,7 +12,7 @@ function HomePage () {
         <Button variant="contained"><Link to="/map-view">Profile</Link></Button>
         <Button variant="contained">Help</Button>
         <Button variant="contained"><Link to="/barcode-input-view">Scan</Link></Button>
-        <Button variant="contained">Quiz</Button>
+        <Button variant="contained"><Link to="/quiz">Quiz</Link></Button>
         <Button variant="contained">History</Button>
         <Button variant="contained"><Link to="/leaderboard">Leaderboard</Link></Button>
       </div>
