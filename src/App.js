@@ -6,6 +6,7 @@ import './App.css';
 import BarcodeScannerPage from './pages/BarcodeReaderPage';
 import HomePage from "./pages/HomePage"
 import MapPage from './pages/MapPage';
+import LeaderBoard from "./pages/LeaderBoard"
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             />
             <Route path="/barcode-input-view" element={<BarcodeScannerPage />} /> 
             <Route path="/map-view" element={<MapPage />} />    
+            <Route path="/leaderboard" element={<LeaderBoard />} />
           </Routes>
         </div>
       </Router>
