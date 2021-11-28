@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect, useContext, Component, useLayoutEffect, createRef, prevProps, prevState } from "react";
+import React from "react";
 import Text from "react-native";
+import { Button } from "@material-ui/core";
 import Popup from "reactjs-popup";
 import { GoogleMap, Marker, useLoadScript, LoadScript, Polyline } from "@react-google-maps/api";
 
@@ -213,32 +214,18 @@ class MapView extends React.Component {
                     {content}
                     <Popup
                         trigger={() => (
-                            <button
+                            <Button
                             className="stats"
+                            variant="contained"
                             >
                             Statistics
-                            </button>
+                            </Button>
                         )}
                         position="bottom right"
                         closeOnDocumentClick
                         >
                         <span>
                             <StatsPopup></StatsPopup>;
-                        </span>
-                    </Popup>
-                    <Popup
-                        trigger={() => (
-                            <button
-                            className="barcode"
-                            >
-                            Scan Item
-                            </button>
-                        )}
-                        position="top left"
-                        closeOnDocumentClick
-                        >
-                        <span>
-                            <BarcodePopup getCoordinates={this.getCoordinates} boolMap={true}></BarcodePopup>;
                         </span>
                     </Popup>
                     <TextField
@@ -259,6 +246,22 @@ class MapView extends React.Component {
                     
                 </GoogleMap>
                 </LoadScript>
+                <Popup
+                        trigger={() => (
+                            <Button
+                            className="barcode"
+                            variant="contained"
+                            >
+                            Scan Item
+                            </Button>
+                        )}
+                        position="bottom left"
+                        closeOnDocumentClick
+                        >
+                        <span>
+                            <BarcodePopup getCoordinates={this.getCoordinates} boolMap={true}></BarcodePopup>
+                        </span>
+                    </Popup>
             </div>
         );
     };

@@ -63,7 +63,7 @@ function BarcodePopup (props) {
                 onFocus={() => setAcceptingScanInternal(true)}
                 onBlur={() => setAcceptingScanInternal(false)}
               />
-              <Button variant="contained" onClick={(e) => handleSubmit(e)}>Submit</Button>
+              <Button variant="outlined" onClick={(e) => handleSubmit(e)}>Submit</Button>
             </div>
           </div>
           <div className="right-side">
