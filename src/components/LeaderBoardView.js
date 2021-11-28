@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {getScore} from "../components/MapView"
+require("./css/LeaderBoard.css");
 
 export default function LeaderBoardView(props) {
 
@@ -60,8 +61,11 @@ export default function LeaderBoardView(props) {
             
             
             return(
-                <div className = "Block">
-                    <table className="Score Table">
+
+                
+               <div class="row">
+                   <div class="column">
+                    <table>
                         <tbody className = "Scottish">
                             {       
                                 ScottishCities.map((user, rank) => {
@@ -78,6 +82,10 @@ export default function LeaderBoardView(props) {
                             }
                             
                         </tbody>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <table>
                         <tbody className = "UK">
                             {       
                                 UkCities.map((user, rank) => {
@@ -94,8 +102,12 @@ export default function LeaderBoardView(props) {
                             }
                             
                         </tbody>
-                    </table>
+                        </table>
+                        
+                    
+                    </div>
                 </div>
+            
             )
             
         
