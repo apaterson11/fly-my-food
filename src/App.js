@@ -9,6 +9,7 @@ import MapPage from './pages/MapPage';
 import LeaderBoard from "./pages/LeaderBoard"
 import Quiz from "./pages/Quiz"
 import AfterQuiz from "./pages/AfterQuiz"
+import ProfilePage from './pages/ProfilePage';
 
 
 class App extends Component {
@@ -30,8 +31,10 @@ class App extends Component {
               />
               <Route path="/barcode-input-view" element={<BarcodeScannerPage />} /> 
               <Route path="/map-view" element={<MapPage />} />
-              <Route path="/quiz" element={<Quiz/>} />
-              <Route path="/quizscore" element={<AfterQuiz/>} />
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/quizscore" element={<AfterQuiz />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/leaderboard" element={<LeaderBoard />} />
             </Routes>
           </div>
         </Router>

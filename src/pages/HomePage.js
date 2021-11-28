@@ -15,7 +15,7 @@ import "./css/HomePage.css"
 
 function HomePage () {
     return (
-      <div className="screen-container">
+      <div className="profile-container">
         <div className="inline-container">
           <div className="inline-element">
             <div className="top-element">
@@ -24,17 +24,17 @@ function HomePage () {
                   <img src={profileIcon} alt="Profile" width="100" height="100" />
                 </div>
                 <div className="bottom-element nested">
-                  <Button variant="outlined"><Link to="/map-view" className="link" style={{ textDecoration: 'none' }}>Profile</Link></Button>
+                  <Button variant="outlined"><Link to="/profile" className="link" style={{ textDecoration: 'none' }}>Profile</Link></Button>
                 </div>
               </div>
             </div>
             <div className="bottom-element">
               <div className="nested-element-wrapper">
                   <div className="top-element">
-                    <img src={historyIcon} alt="Profile" width="100" height="100" />
+                    <img src={historyIcon} alt="Quiz" width="100" height="100" />
                   </div>
                   <div className="bottom-element nested">
-                    <Button variant="outlined" style={{ color: '#fff' }}><Link to="/quiz">Quiz</Link></Button>
+                    <Button variant="outlined" style={{ color: '#fff' }}><Link to="/quiz" className="link" style={{ textDecoration: 'none' }}>Quiz</Link></Button>
                   </div>
               </div>  
             </div>
@@ -45,7 +45,7 @@ function HomePage () {
                 <img src={worldIcon} alt="World" width="300" height="300" />
               </div>
               <div className="bottom-element scan">
-                <Button variant="outlined"><Link to="/barcode-input-view" className="link" style={{ textDecoration: 'none' }}>Scan</Link></Button>
+                <Button variant="outlined"><Link to="/map-view" className="link" style={{ textDecoration: 'none' }}>Scan</Link></Button>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@ function HomePage () {
                   <img src={leaderboardIcon} alt="Profile" width="100" height="100" />
                 </div>
                 <div className="bottom-element nested">
-                  <Button variant="outlined" style={{ color: '#fff'}}><Link to="/leaderboard">Leaderboard</Link></Button>
+                  <Button variant="outlined" style={{ color: '#fff'}}><Link to="/leaderboard" className="link" style={{ textDecoration: 'none' }}>Leaderboard</Link></Button>
                 </div>
               </div> 
             </div>
