@@ -7,8 +7,39 @@
   padding-bottom: 3%;
 }
 
-.heading {
-  padding-bottom: 1.5%;
-  padding-top: 3%;
-  font-size: 20px;
+.inline-container {
+  display: flex !important;
+  flex-direction: row;
+}
+.inline-element {
+  width: 100%;
+}
+
+.link {
+  color: #fff;
+}
+.link:hover {
+  color: #0ff;
+}
+
+.top-element {
+  display: flex;
+  justify-content: center;
+}
+.bottom-element {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 215px;
+}
+.bottom-element.scan {
+  top: 55px;
+}
+.bottom-element.nested {
+  top: 15px;
+  align-self: flex-start;
+}
+
+.nested-element-wrapper {
+  align-items: center;
 }
