@@ -15,24 +15,26 @@ class App extends Component {
   render() {
     return (
       <>
-      <Helmet><title>Fly My Food</title></Helmet>
-      <div className="router-container">
-      <Router>
-        <div className="main-body">
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<HomePage />}
-            />
-            <Route path="/barcode-input-view" element={<BarcodeScannerPage />} /> 
-            <Route path="/map-view" element={<MapPage />} />    
-            <Route path="/leaderboard" element={<LeaderBoard />} />
-            <Route path="/quiz" element={<Quiz/>} />
-            <Route path="/quizscore" element={<AfterQuiz/>} />
-          </Routes>
+        <Helmet><title>Fly Your Food</title></Helmet>
+        <div className="router-container">
+        <div className="heading">
+          <h1 position="center">Fly Your Food</h1>
         </div>
-      </Router>
+        <Router>
+          <div className="main-body">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={<HomePage />}
+              />
+              <Route path="/barcode-input-view" element={<BarcodeScannerPage />} /> 
+              <Route path="/map-view" element={<MapPage />} />
+              <Route path="/quiz" element={<Quiz/>} />
+              <Route path="/quizscore" element={<AfterQuiz/>} />
+            </Routes>
+          </div>
+        </Router>
     </div>
     </>
     );
