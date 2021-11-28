@@ -34,7 +34,7 @@ function HomePage () {
                     <img src={historyIcon} alt="Profile" width="100" height="100" />
                   </div>
                   <div className="bottom-element nested">
-                    <Button variant="outlined" style={{ color: '#fff' }}>History</Button>
+                    <Button variant="outlined" style={{ color: '#fff' }}><Link to="/quiz">Quiz</Link></Button>
                   </div>
               </div>  
             </div>
@@ -56,7 +56,7 @@ function HomePage () {
                   <img src={leaderboardIcon} alt="Profile" width="100" height="100" />
                 </div>
                 <div className="bottom-element nested">
-                  <Button variant="outlined" style={{ color: '#fff' }}>Leaderboard</Button>
+                  <Button variant="outlined" style={{ color: '#fff'}}><Link to="/leaderboard">Leaderboard</Link></Button>
                 </div>
               </div> 
             </div>

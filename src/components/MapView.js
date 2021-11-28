@@ -185,6 +185,8 @@ class MapView extends React.Component {
         this.setState({ score: this.state.distance/this.state.lines.length});
     }
     
+
+
     render() {
         let content = this.state.lines.map((line, index) => 
             <Polyline
