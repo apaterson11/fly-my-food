@@ -1,0 +1,17 @@
+.question-container {
+  padding: 2%;
+  padding-left: 5%;
+}
+
+.button-container {
+  padding-top: 2%;
+  display: flex !important;
+  flex-direction: row;
+}
+.question-button {
+  margin-left: 1%;
+}
+
+.list-item {
+  text-align: center;
+}
