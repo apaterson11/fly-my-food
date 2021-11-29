@@ -68,7 +68,7 @@ export default function LeaderBoardView(props) {
                     
                     <table>
                         <tbody className = "Scotland">
-                        <tr className="title"><h3>Scottish City Average -</h3></tr>
+                        <tr className="title"><h3>Scottish City Average</h3></tr>
                         
                             {       
                                 ScottishCities.map((user, rank) => {
@@ -92,7 +92,7 @@ export default function LeaderBoardView(props) {
                         <table>
                         
                         <tbody className = "UK">
-                        <tr className="title"><h3>UK City Average -</h3></tr>
+                        <tr className="title"><h3>UK City Average</h3></tr>
                             {       
                                 UkCities.map((user, rank) => {
                                     return (

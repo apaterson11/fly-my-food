@@ -76,7 +76,13 @@ export default function Question() {
 					</div>
 					<div className='button-container'>
 						{questions[currentQuestion].answer.map((answer) => (
-							<Button variant="outlined" className="question-button" style={{ color: '#fff'}} onClick={() => checkAnswer(answer.isCorrect)}>{answer.answerText}</Button>
+							<Button 
+                                variant="outlined"
+                                style={{ color: '#fff', marginLeft: '10px', marginRight: '10px'}}
+                                onClick={() => checkAnswer(answer.isCorrect)}
+                                >
+                                    {answer.answerText}
+                            </Button>
 						))}
 					</div>
 				</>

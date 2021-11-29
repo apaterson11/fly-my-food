@@ -5,11 +5,6 @@
 
 .button-container {
   padding-top: 2%;
-  display: flex !important;
-  flex-direction: row;
-}
-.question-button {
-  margin-left: 1%;
 }
 
 .list-item {
