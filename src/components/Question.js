@@ -1,25 +1,9 @@
-import React, {useState, createContext} from 'react'
-// import styled from 'styled-components'
+import React, { useState } from 'react'
+
 import { Navigate } from "react-router-dom"
+import { Button } from "@material-ui/core";
 
-
-
-
-
-
-// const Button = styled.button`
-//     size: 10px;
-//     background-color: #3E3E3E;
-//     color: white;
-//     border-radius: 5px;
-//     border: 2px solid #3E3E3E;
-//     cursor: pointer;
-
-//     &:hover
-// `
-
-
-
+import "./css/Question.css"
 
 export var score = 0;
 export default function Question() {
@@ -55,11 +39,8 @@ export default function Question() {
 
     ];
 
-    
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false)
-    
-
 
     const checkAnswer = (isCorrect) => {
         if (isCorrect) {
@@ -75,12 +56,9 @@ export default function Question() {
         }
     };
 
-
-
-
 	return (
 
-		<div className='Questions'>
+		<div className='question-container'>
 			{showScore ? (
                 
 				<div className='redirect to leaderboards'>
@@ -92,13 +70,13 @@ export default function Question() {
 				<>
 					<div className='question-section'>
 						<div className='question-count'>
-							<span>Question {currentQuestion + 1}</span>
+							<h3>Question {currentQuestion + 1}</h3>
 						</div>
 						<div className='question-text'>{questions[currentQuestion].question}</div>
 					</div>
-					<div className='answer-section'>
+					<div className='button-container'>
 						{questions[currentQuestion].answer.map((answer) => (
-							<button onClick={() => checkAnswer(answer.isCorrect)}>{answer.answerText}</button>
+							<Button variant="outlined" className="question-button" style={{ color: '#fff'}} onClick={() => checkAnswer(answer.isCorrect)}>{answer.answerText}</Button>
 						))}
 					</div>
 				</>
