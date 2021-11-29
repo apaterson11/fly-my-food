@@ -7,9 +7,8 @@ require("./css/BarcodePopup.css");
 function BarcodePopup (props) {
   const [acceptingScanInternal, setAcceptingScanInternal] = useState(true);
   const [result, setResult] = useState("");
-  const [barcodeList, setBarcodeList] = useState([]);
+  // const [barcodeList, setBarcodeList] = useState([]);
   const [count, setCount] = useState(0);
-  const [coords, setCoords] = useState([]);
 
   const productNames = ["Golden Apples", "Large Free-Range Chicken", "Ready to Eat Avocado", "Baby Potatoes", "Carrots", "Walkers 24 Multipack", "Warburtons Medium White Bread", "Lurpak Spreadable"];
   const glasgow = { lat: 55.8642, lng: -4.2518 };
@@ -34,7 +33,7 @@ function BarcodePopup (props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBarcodeList(barcodeList => [...barcodeList, [productNames[count], countriesList[count], result]])
+    props.barcodeList.push([productNames[count], countriesList[count], result]);
     if (props.boolMap) {
       props.getCoordinates(locations[count]);
     }
@@ -70,7 +69,7 @@ function BarcodePopup (props) {
             <div className="heading">Your Shopping List</div>
             <div className="barcodes-list">
               <List dense={true}>
-              {barcodeList?.map((line) =>
+              {props.barcodeList?.map((line) =>
                 <div>
                 <Divider />
                 <ListItem>

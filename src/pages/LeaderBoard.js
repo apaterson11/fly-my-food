@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function LeaderBoardPage () {
     return (
       <div className="screen-container">
-            <h1>LeaderBoard</h1>
+            <h1>Leader Board</h1>
             <LeaderBoardView></LeaderBoardView>
             <Link to="/">Homepage</Link>
       </div>

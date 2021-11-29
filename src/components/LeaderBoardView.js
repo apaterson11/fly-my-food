@@ -11,7 +11,7 @@ export default function LeaderBoardView(props) {
                         name:  'Inverness',
                     },
                     {
-                        name:  'Edingburgh',
+                        name:  'Edinburgh',
                     
                     },
                     {
@@ -43,7 +43,7 @@ export default function LeaderBoardView(props) {
             
             },
             {
-                name:  'Warreck',
+                name:  'Warwick',
             
             },
             {
@@ -66,7 +66,7 @@ export default function LeaderBoardView(props) {
                <div class="row">
                    <div class="column">
                     <table>
-                        <tbody className = "Scottish">
+                        <tbody className = "Scotland">
                             {       
                                 ScottishCities.map((user, rank) => {
                                     return (

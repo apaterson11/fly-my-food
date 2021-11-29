@@ -26,11 +26,13 @@ body {
   font-size: 24px;
   padding: 10px;
   border-radius: 7px;
+  background-color: rgb(117, 117, 117);
+  color: floralwhite;
 }
 
 .stats {
   position: relative;
-  top: 5%;
+  top: 10%;
   display: block;
   float: right;
   z-index: 401;
@@ -40,7 +42,9 @@ body {
   font-family: sans-serif;
   font-size: 24px;
   padding: 10px;
-  border-radius: 7px;
+  border-radius: 7px;  
+  background-color: rgb(117, 117, 117);
+  color: floralwhite;
 }
 
 .barcodePopup {
@@ -63,7 +67,7 @@ body {
   z-index: 402;
   width: 700px;
   height: auto;
-  background: rgb(245, 245, 245);
+  background: rgb(117, 117, 117);
   font-family: sans-serif;
   font-size: 12px;
   padding: 5px;
@@ -76,3 +80,21 @@ body {
   font-size: 18px;
   padding-bottom: 10px;
 }
+
+.reset {
+  vertical-align: left;
+  position: absolute;
+  top: 88%;
+  float: left;
+  z-index: 401;
+  width: auto;
+  height: auto;
+  margin: 10px;
+  font-family: sans-serif;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: rgb(117, 117, 117);
+  color: floralwhite;
+}
+
