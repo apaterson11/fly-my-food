@@ -7,7 +7,6 @@ require("./css/BarcodePopup.css");
 function BarcodePopup (props) {
   const [acceptingScanInternal, setAcceptingScanInternal] = useState(true);
   const [result, setResult] = useState("");
-  // const [barcodeList, setBarcodeList] = useState([]);
   const [count, setCount] = useState(0);
 
   const productNames = ["Golden Apples", "Large Free-Range Chicken", "Ready to Eat Avocado", "Baby Potatoes", "Carrots", "Walkers 24 Multipack", "Warburtons Medium White Bread", "Lurpak Spreadable"];
