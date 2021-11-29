@@ -10,7 +10,7 @@ function LeaderBoardPage () {
             <div className="board">
                 <LeaderBoardView ></LeaderBoardView>
             </div>
-            <Link to="/">Homepage</Link>
+            {/* <Link to="/">Homepage</Link> */}
             </div>
       </div>
     );
