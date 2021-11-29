@@ -65,15 +65,19 @@ export default function LeaderBoardView(props) {
                 
                <div class="row">
                    <div class="column">
+                    
                     <table>
                         <tbody className = "Scotland">
+                        <tr className="title"><h3>Scottish City Average -</h3></tr>
+                        
                             {       
                                 ScottishCities.map((user, rank) => {
                                     return (
-
+                                    
                                         <tr >
-                                            <td>{rank+1}</td>
-                                            <td>{user.name}</td>
+                                            
+                                            
+                                            <td><b>{rank+1}.{user.name}</b></td>
                                         </tr>
 
                                     )
@@ -86,14 +90,19 @@ export default function LeaderBoardView(props) {
                     </div>
                     <div class="column">
                         <table>
+                        
                         <tbody className = "UK">
+                        <tr className="title"><h3>UK City Average -</h3></tr>
                             {       
                                 UkCities.map((user, rank) => {
                                     return (
 
+                                        
+                                        
                                         <tr >
-                                            <td>{rank+1}</td>
-                                            <td>{user.name}</td>
+                                            
+                                            
+                                            <td><b>{rank+1}.{user.name}</b></td>
                                         </tr>
 
                                     )

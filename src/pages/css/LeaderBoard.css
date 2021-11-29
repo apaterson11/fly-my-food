@@ -1,0 +1,20 @@
+.screen-container{
+    margin: auto;
+    width: 100%;
+
+    padding: 10px;
+}
+.board-container{
+    margin: auto;
+    width: 60%;
+
+
+    
+}
+.subtitle{
+    text-align: center;
+}
+.board{
+
+    text-align: right;
+}
