@@ -15,8 +15,8 @@ function ProfileContent (props) {
                 <p className="profile-text"><strong>City:</strong> {props.city}</p>
                 <p className="profile-text"><strong>Preferred Shop:</strong> {props.firstShop}</p>
                 <p className="profile-text"><strong>Secondary Shop:</strong> {props.secondShop}</p>
-                <p className="profile-text"><strong>Current Shop:</strong> {props.currentKM}</p>
-                <p className="profile-text"><strong>Previous Shop:</strong> {props.prevKM}</p>
+                <p className="profile-text"><strong>Current Shop:</strong> {props.currentKM} km</p>
+                <p className="profile-text"><strong>Previous Shop:</strong> {props.prevKM} km</p>
                 <p className="profile-text"><strong>Reduction in Carbon Footprint:</strong> {props.carbonFootprint}</p>
             </div>
             <div className="image-side">
